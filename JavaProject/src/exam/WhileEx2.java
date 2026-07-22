@@ -31,6 +31,8 @@ public class WhileEx2 {
         }
 
 		System.out.println("평균 : " + avg);
+		
+		sc.close();
 
 	}
 

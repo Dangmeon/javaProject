@@ -25,6 +25,8 @@ public class SwitchEx {
 				System.out.println("학점 : F");
 
 		}
+		
+		sc.close();
 
 	}
 

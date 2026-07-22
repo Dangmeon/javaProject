@@ -27,6 +27,8 @@ public class ForEx5 {
         }
 
 		System.out.println("평균 : " + avg);
+		
+		sc.close();
 	}
 
 }

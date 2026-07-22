@@ -19,6 +19,7 @@ public class ForEx3 {
 		}
 		System.out.print(start + " ~ " + end + "의 합 : " + sum);
 		
+		sc.close();
 	}
 
 }

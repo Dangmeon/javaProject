@@ -30,6 +30,7 @@ public class ForEx4 {
 		System.out.println("음의 개수 : " + countM);
 		System.out.println("0의 개수 : " + countZ);
 		
+		sc.close();
 	
 	}
 
