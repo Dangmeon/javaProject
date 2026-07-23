@@ -34,18 +34,17 @@ public class StringEquals {
 		if(strVar3 == strVar4) { // 참조변수가 저장하고 있는 주소가 같은 지를 확인
 			System.out.println("strVar3 과 strVar4는 참조가 같음");
 		}else {
-			System.out.println("strVar3 과 strVar4는 참조가 다름");
+			System.out.println("strVar3 과 strVar4는 참조가 다름");	
 
 		}
 		
 		// 참조되는 데이터(문자열)이 같은지 확인하기 위해서는 String class 가 제공하는 메소드 equals() 사용
 		if(strVar3.equals(strVar4)) {
-			System.out.println("strVar3 과 strVar4는 문자열이 같음");
+			System.out.println("strVar3 과 strVar4는 문자열이 같음");	
 		}else {
 			System.out.println("strVar3 과 strVar4는 문자열이 다름");
 		}
 		
-
 	}
 
 }
