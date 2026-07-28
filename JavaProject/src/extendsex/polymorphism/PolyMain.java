@@ -49,7 +49,7 @@ public class PolyMain {
 		ap1 = new Dog();  // sub 클래스 인스턴스 타입이 대입되면서 super class 타입으로 자동 형변환
 		ap1.show(); // 재정의된 메소드
 		ap1.sound();
-		ap1.dogMethod(); // sub 클래스 메소드 사용 불가능, 재정의된 메서드가 아닌 일반 메서드이기 때문
+		// ap1.dogMethod(); // sub 클래스 메소드 사용 불가능, 재정의된 메서드가 아닌 일반 메서드이기 때문
 		ap1.animalMethod(); // super 클래스 메소드 사용 가능
 		
 		// 강제 형변환 예시
@@ -61,6 +61,21 @@ public class PolyMain {
 		
 		
 		// 강제 형변환은 변환하려는 부모 객체가 자식 객체의 인스턴스를 참조하는 경우에만 가능
+		
+		///////////// 객체의 타입 확인 연산자 : instanceof 
+		Animal aa = new Animal();
+		// Dog dd = (Dog)aa; // 문법적 오류는 없음, 단, aa 참조변수가 Dog 타입을 참조하고 있지 않았음 
+		// 실행 오류 발생 : cannot be cast (class extendsex.polymorphism.Animal cannot be cast to class extendsex)
+		
+		if(aa instanceof Dog) { // 강제형변환 진행할 클래스 타입인지 확인 후에 형변환 진행
+			Dog dd = (Dog)aa;
+			System.out.println("Dog 타입으로 변환 성공");
+		}else {
+			System.out.println("Dog 타입으로 변환 실패");
+		}
+		
+		
+		
 		
 	}
 
