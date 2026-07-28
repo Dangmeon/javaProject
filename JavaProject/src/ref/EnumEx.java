@@ -8,8 +8,12 @@ public class EnumEx {
 		
 		// 열거형은 참조타입이므로 null 로 초기화가 가능
 		Week today = null;
-		today = Week.SUNDAY;
+		today = Week.SUNDAY; // Sunday, sunDay, sunD, 일요일
 
+		Week week1 = Week.SUNDAY; 
+		
+		// today 와 week1 은 같은 열거 객체 참조
+		System.out.println(today == week1); // true 반환 동일 객체 참조
 	}
 
 }
