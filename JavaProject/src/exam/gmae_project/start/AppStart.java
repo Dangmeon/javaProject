@@ -2,6 +2,10 @@ package exam.gmae_project.start;
 
 import java.util.Scanner;
 
+import exam.gmae_project.game.GaBaBo;
+import exam.gmae_project.game.Guess;
+import exam.gmae_project.info.AppInfo;
+
 public class AppStart {
 
 	public static void main(String[] args) {
@@ -13,6 +17,9 @@ public class AppStart {
 		// 1. 게임정보 2. 가위바위보 게임 3. 숫자 알아맞히기 게임 4. 종료
 		int num;
 		
+		AppInfo appInfo = new AppInfo();
+        GaBaBo gababo = new GaBaBo();
+        Guess guess = new Guess();
 		
 		System.out.print("***********************************\n");
 		System.out.print("       	★★게임에 오신 것을 환영합니다^^       \n");
@@ -29,7 +36,30 @@ public class AppStart {
 			System.out.println("----------------------------------------------------------");
 			System.out.print("메뉴 번호 입력 : ");
 			num = sc.nextInt();
+			
+			if(num == 4) {
+				System.out.println("***********************************");
+                System.out.println("종료합니다!");
+                System.out.println("***********************************");
+                break;
+			}
+			
+			switch(num) {
+			case 1:
+				appInfo.appInfo();
+				break;
+			case 2:
+				gababo.gababo();
+				break;
+			case 3:
+				guess.guess();
+				break;
+			default:
+                System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
+			}
 		}
+		
+		sc.close();
 		
 
 		
