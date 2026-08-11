@@ -171,9 +171,9 @@ public class BookDAO implements IBookDAO{
 	@Override
 	public BookDTO searchBookName(String bookName) {
 		try {
-			String sql = "select * from book where bookName=?";
+			String sql = "select * from book where bookName like ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bookName);
+			pstmt.setString(1, "%" + bookName + "%");
 			
 			rs = pstmt.executeQuery();
 			
@@ -204,12 +204,19 @@ public class BookDAO implements IBookDAO{
 	@Override
 	public ArrayList<BookDTO> searchPubName(String pubName) {
 		
+		if (this.bookList == null) {
+	        this.bookList = new ArrayList<>();
+	    } else {
+	        this.bookList.clear(); 
+	    }
+		
 		try {
+			
 			String sql = "select * from book where pubNo IN("
-					+ "select pubNo from publisher where pubName=?"
+					+ "select pubNo from publisher where pubName like ?"
 					+ ")";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, pubName);
+			pstmt.setString(1, "%" + pubName + "%");
 			
 			rs = pstmt.executeQuery();
 			
@@ -239,10 +246,18 @@ public class BookDAO implements IBookDAO{
 
 	@Override
 	public ArrayList<BookDTO> searchBookAuthor(String bookAuthor) {
+		
+		if (this.bookList == null) {
+	        this.bookList = new ArrayList<>();
+	    } else {
+	        this.bookList.clear(); 
+	    }
+		
 		try {
-			String sql = "select * from book where bookAuthor=?";
+			String sql = "select * from book where bookAuthor like ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bookAuthor);
+			pstmt.setString(1, "%" + bookAuthor + "%");
+			
 			
 			rs = pstmt.executeQuery();
 			

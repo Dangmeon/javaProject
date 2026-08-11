@@ -55,7 +55,7 @@ public class ReadWrite {
 	
 	
 	// 출력 메소드 - dao에서 select된 결과는 ArrayList 타입이거나 StudentDTO 타입
-	public static void writeStdInfo(ArrayList<BookDTO> bookList)  {
+	public static void writeBookInfo(ArrayList<BookDTO> bookList)  {
 		System.out.println("----- 도서 정보 조회 ------");
 		System.out.format("%-10s\t %-15s\t %-10s\t %-8s \t%13s %5s %5s\n", 
 				"도서번호", "도서명", "저자", "가격", "발행일", "재고", "출판사번호");	
@@ -75,7 +75,12 @@ public class ReadWrite {
 		}
 	}
 	
-	public static void writeStdInfo(BookDTO dto)  {
+	public static void writeBookInfo(BookDTO dto)  {
+		
+		if (dto == null) {
+	        System.out.println("검색 결과가 없습니다. (도서명을 다시 확인해 주세요.)");
+	        return; 
+	    }
 		
 		System.out.println("----- 도서 정보 조회 ------");
 		System.out.format("%-10s\t %-15s\t %-10s\t %-8s \t%13s %5s %5s\n", 

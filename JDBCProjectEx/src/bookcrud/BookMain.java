@@ -14,8 +14,11 @@ public class BookMain {
 		Scanner sc = new Scanner(System.in);
 		String bookNo;
 		String pubName;
+		String bookName;
+		String bookAuthor;
 		String selMenu = null;
 		ArrayList<BookDTO> bookList = null;
+		
 		
 		while(true) {
 			try {
@@ -44,36 +47,36 @@ public class BookMain {
 				break;
 			case "2":
 				bookList = dao.getAllBook();
-				ReadWrite.writeStdInfo(bookList);
+				ReadWrite.writeBookInfo(bookList);
 				break;
 			case "3":
 				bookList = dao.getAllBook();
-				ReadWrite.writeStdInfo(bookList);
+				ReadWrite.writeBookInfo(bookList);
 				System.out.println("수정할 도서번호 입력 : ");
 				bookNo = sc.nextLine();
 				dao.updateBook(ReadWrite.getBookInfo(sc, false));
 				break;
 			case "4":
 				bookList = dao.getAllBook();
-				ReadWrite.writeStdInfo(bookList);
+				ReadWrite.writeBookInfo(bookList);
 				System.out.println("삭제할 도서번호 입력 : ");
 				bookNo = sc.nextLine();
 				dao.deleteBook(bookNo);
 				break;
 			case "5":
 				System.out.println("도서명을 입력하세요");
-				dptName = sc.nextLine();
-				ReadWrite.writeStdInfo(dao.searchStudentDept(dptName));
+				bookName = sc.nextLine();
+				ReadWrite.writeBookInfo(dao.searchBookName(bookName));
 				break;
 			case "6":
 				System.out.println("출판사명을 입력하세요");
-				dptName = sc.nextLine();
-				ReadWrite.writeStdInfo(dao.searchStudentDept(dptName));
+				pubName = sc.nextLine();
+				ReadWrite.writeBookInfo(dao.searchPubName(pubName));
 				break;
 			case "7":
 				System.out.println("저자명을 입력하세요");
-				dptName = sc.nextLine();
-				ReadWrite.writeStdInfo(dao.searchStudentDept(dptName));
+				bookAuthor = sc.nextLine();
+				ReadWrite.writeBookInfo(dao.searchBookAuthor(bookAuthor));
 				break;
 			case "8":
 				System.out.println("프로그램을 종료합니다.");
