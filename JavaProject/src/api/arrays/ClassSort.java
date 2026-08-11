@@ -24,13 +24,7 @@ public class ClassSort {
 			System.out.println(member.name);
 
 		}
-		
-		
-		
-		
-		
-		
-		
+	
 		
 		System.out.println();
 
