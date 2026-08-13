@@ -83,6 +83,19 @@ public class Stack {
 		}
 	}
 	
+	//////////////// 연습문제2를 위한 showStack /////////////////////////
+	public void showParkingStack() {
+		if(isEmpty()) {
+			System.out.println("주차장이 비었습니다.");
+		}else {
+			System.out.println("현재 주차장 현황");
+			for(int i = 0; i <= top; i++) {
+				System.out.println((i + 1) + "번 자리 : " + stackArr[i] +" 자동차");
+			}
+		}
+	}
+	
+	
 	///////////////////////////// 연습문제 풀이 /////////////////////////////////
 	///
 	public int size() {
