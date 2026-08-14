@@ -1,20 +1,20 @@
-package datastructure.queue;
+package datastructure.queue.generic;
 
-// Queue
-// 오버플로우 발생 시 dequeue 된 공간이 있는 경우 이동해서 해결
-public class MyQueueMove {
+import java.util.NoSuchElementException;
+
+public class MyQueueMoveGeneric <E>{
 	
 	private int queueSize;
 	private int front; // 첫 번쨰 요소 앞
 	private int rear; // 마지막 요소
 	private int num; // 현재 데이터 수
-	private char[] queue; // 큐 본체
+	private Object[] queue; // 큐 본체
 	
-	public MyQueueMove(int queueSize) {
+	public MyQueueMoveGeneric(int queueSize) {
 		this.front = this.rear = -1;
 		this.num = 0;
 		this.queueSize = queueSize;
-		queue = new char[queueSize];
+		queue = new Object[queueSize];
 	}
 	
 	// front 와 rear 의 값이 동일하면 데이터가 없는 상태
@@ -31,7 +31,7 @@ public class MyQueueMove {
 	}
 
 	// 큐에 데이터 삽입
-	public void enqueue(char item) {
+	public void enqueue(E item) {
 		if(isFull()) { // 마지막에 저장된 데이터가 큐의 마지막 원소로 저장되면 Full, front 에서 삭제 후 비었어도 검증하지 않음
 			System.out.println("enqueue 실패 Queue Full");
 		}else if(rear == queueSize -1 && num != 0){ // 이동이 필요한 경우
@@ -51,24 +51,28 @@ public class MyQueueMove {
 	}
 	
 	// 큐에서 데이터 삭제
-	public char dequeue() {
+	public E dequeue() {
 		if(isEmpty()) {
 			System.out.println("Queue Empty");
-			return 'E';
+			throw new NoSuchElementException();
 		}else {
 			num--;
 			front++;
-			return queue[front]; // queue 의 front 포인터는 삭제할 데이터의 앞 index 를 참조하고 있음
+			@SuppressWarnings("unchecked")
+			E item = (E) queue[front];
+			return item;
 		}
 	}
 	
 	// 큐의 첫 번째 데이터 추출(저장된지 가장 오래된 data)
-	public char peek() {
+	public E peek() {
 		if(isEmpty()) {
 			System.out.println("peek 실패");
-			return 'E';
-		}else {
-			return queue[front+1]; // front 포인터 변경되면 안됨
+			throw new NoSuchElementException();
+			}else {
+				@SuppressWarnings("unchecked")
+				E item = (E)queue[front+1];
+				return item;  // front 포인터 변경되면 안됨
 		}
 	}
 	
@@ -110,12 +114,12 @@ public class MyQueueMove {
 	}
 	
 	// 전달된 data 가 queue 에 저장된 데이터인지 확인 후 해당 인덱스 반환
-	public int contains(char value) {
+	public int contains(E value) {
 		if (isEmpty()) {
 			System.out.println("Queue Empty");
 	    }else {
 		    for (int i = front + 1; i <= rear; i++) {
-		        if (queue[i] == value) {
+		        if (queue[i] != null && queue[i].equals(value)) {
 		            return i; 
 		        }
 		    }
@@ -123,17 +127,5 @@ public class MyQueueMove {
 	    return -1; // 해당 value 가 queue 에 없음
 	}
 	
-//	public int contains(char item) {
-//		if (isEmpty()) {
-//	        return -1;
-//	    }
-//		
-//	    for (int i = 0; i <= rear; i++) {
-//	        if (queue[i] == item) {
-//	            return i; 
-//	        }
-//	    }
-//	    
-//	    return -1;
-//	}
+
 }

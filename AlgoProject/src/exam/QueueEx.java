@@ -63,21 +63,27 @@ public class QueueEx {
 						if(targetIndex == -1) {
 							System.out.print(targetCar + "차량이 주차장에 없습니다.");
 						}else {
-							int currentSize = q.size();
-							char[] tempArray = new char[currentSize];
 							
-							for(int i = 0; i < currentSize; i++) {
-								tempArray[i] = q.dequeue();
-							}
-							
-							for(int i = 0; i < currentSize; i++) {
-								if(tempArray[i] != targetCar) {
-									q.enqueue(tempArray[i]);
+							if(targetCar == q.peek()) {
+								char exitedCar = q.dequeue();
+								System.out.println(exitedCar + " 자동차 출차");
+							}else {
+								int currentSize = q.size();
+								char[] tempArray = new char[currentSize];
+								
+								for(int i = 0; i < currentSize; i++) {
+									tempArray[i] = q.dequeue();
 								}
+								
+								for(int i = 0; i < currentSize; i++) {
+									if(tempArray[i] != targetCar) {
+										q.enqueue(tempArray[i]);
+									}
+								}
+								
+								q.enqueue(targetCar);
+								System.out.println("패널티가 적용되어 " + targetCar + " 차량은 출차 순서가 뒤로 밀립니다.");
 							}
-							
-							q.enqueue(targetCar);
-							System.out.println("패널티가 전용되어" + targetCar + " 차량은 출차 순서가 뒤로 밀립니다.");
 						}
 					}
 					
