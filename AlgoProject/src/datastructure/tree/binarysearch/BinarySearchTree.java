@@ -20,6 +20,10 @@ public class BinarySearchTree<E> {
 		this.root = null;
 		this.size = 0;
 	}
+	
+	public Node<E> getRoot() {
+		return this.root;
+	}
 
 	/*
 	 * 노드 추가를 위한 addUsingXXX() 매소드는 반환 타입이 E 타입임 중복원소를 삽입할 경우 해당 value 를 반환하고 삽입이
@@ -40,7 +44,7 @@ public class BinarySearchTree<E> {
 		Node<E> currentParent; // current 직전의 탐색 노드를 가리키는 노드
 		// 삽입할 노드가 비교될 수 있도록 변수 생성 (add 대상의 value 가 비교 가능하도록 Comparable 타입으로 변환)
 		@SuppressWarnings("unchecked")
-		Comparable<? super E> compValue = (Comparable<? super E>) value;
+		Comparable<? super E> compValue = (Comparable<? super E>) value; // 기준 객체.compareTo(비교객체)
 		int compResult; // 비교 결과( 양수, 음수, 0)
 
 		// current 가 null 즉, root 가 null 이면 root 에 새 노드 연결 후 null 반환
@@ -136,7 +140,7 @@ public class BinarySearchTree<E> {
 	
 	// Comparable 을 이용한 삭제 메소드
 	public E removeUsingComparable(E value) {
-		Node<E> currentParent;
+		Node<E> currentParent = null;
 		Node<E> current = root;
 		boolean hasLeft = false;
 		int resComp;
@@ -146,7 +150,7 @@ public class BinarySearchTree<E> {
 			return null;
 		}
 		
-		@SuppressWarnings("uncecked")
+		@SuppressWarnings("unchecked")
 		Comparable<? super E> compValue = (Comparable<? super E>)value;
 		
 		// 삭제할 node 를 찾는 역할을 함, current.value 와 compValue 가 동일하면 삭제 노드를 찾게 됨, 찾으면 break
@@ -191,13 +195,188 @@ public class BinarySearchTree<E> {
 	
 	// Comparator 을 이용한 삭제 메소드
 	public E removeUsingComparator(E value, Comparator<? super E> comp) {
-	
+		E res = null;
+		return res;
 	}
 	
 	// 실제 노드를 삭제하는 메소드, 삭제 후 대체되고 난 뒤의 위치 노드를 반환
 	// 삭제 후 재배치된 삭제 노드의 자식노드의 참조를 반환
-	private Node<E> deleteNode(Node<E> node){
-		
+	private Node<E> deleteNode(Node<E> removeNode){
+		if(removeNode != null) {
+			if(removeNode.left == null && removeNode.right == null) { // 삭제하려는 노드가 단말
+				if(removeNode == root) {
+					root = null;
+				}else {
+					removeNode = null;
+				}
+				return null;
+			}
+			
+			if(removeNode.left != null && removeNode.right != null) { // 삭제하려는 노드의 양쪽 자식 노드가 있음
+				// 삭제하려는 node 의 값을 다른 값으로 대체
+				// 대체값 결정 방법
+				// - 왼쪽 서브트리에서 제일 큰 값의 노드로 대체
+				// - 오른쪽 서브트리에서 제일 작은 값의 노드로 대체
+				Node<E> replacement = getSuccessorAndUnlink(removeNode);
+				removeNode.value = replacement.value;
+			}else if(removeNode.left != null) { // 왼쪽 노드만 있는 경우
+				if(removeNode == root) {
+					removeNode = removeNode.left;
+					root = removeNode;
+				}else {
+					removeNode = removeNode.left; // 삭제할 노드의 왼쪽 자식 노드로 업데이트
+				}
+			}else { // 오른쪽 노드만 있는 경우
+				if(removeNode == root) {
+					removeNode = removeNode.right;
+					root = removeNode;
+				}else {
+					removeNode = removeNode.right; // 삭제할 노드의 오른쪽 자식 노드로 업데이트
+				}
+			}
+		}
+		return removeNode; // 삭제된 자리 대체할 노드의 참조
 	}
 	
+	
+	/*
+	 * 	삭제되는 노드의 자리를 대체할 노드(후계자)를 찾는 메소드
+	 * 	오른쪽 서브트리에서 가장 작은 값의 노드를 찾음
+	 * 
+	 * 	@param node 삭제되는 노드(= 대체되어야할 노드)
+	 * 	@return 대체할 노드 
+	 * */
+	
+	private Node<E> getSuccessorAndUnlink(Node<E> node){
+		Node<E> currentParent = node;
+		Node<E> current = node.right;
+		
+		if(current.left == null) { // 현재 노드의 왼쪽 자식노드가 없으면 현재 노드가 가장  작은 값의 노드
+			// 가장 작은 값의 노드의 오른쪽 자식노드를 부모 노드의 오른쪽 자식으로 연결
+			currentParent.right = current.right;
+			current.right = null;
+			return current;
+		}
+		
+		// current 의 왼쪽 노드가 null 이 아님 -> 가장 작은 값의 노드를 찾기(왼쪽으로 이동)
+		while(current.left != null) {
+			currentParent = current;
+			current = current.left;
+		}
+		
+		// 반복문 종료 후 current 에 가장 작은 값의 노드가 참조됨, current 의 왼쪽 노드 없음
+		currentParent.left = current.right;
+		current.right = null;
+		return current;
+	}
+	
+	/*
+	 * 	이진 탐색 트리에 있는 원소 개수 반환
+	 * */
+	
+	public int size() {
+		return this.size;
+	}
+	
+	/*
+	 * 	이진 탐색 트리가 비어있는지를 판단하는 메서드
+	 * */
+	
+	public boolean isEmpty() {
+		return size() == 0;
+	}
+	
+	/*
+	 * 	이진 탐색 트리내에 찾고자 하는 객체가 존재하는지를 판단하는 메서드
+	 * */
+		
+	public boolean contains(Object o) {
+		if(comparator == null) {
+			return containsUsingComparable(o);
+		}
+		return containsUsingComparator(o, comparator);
+	}
+	
+	/*
+	 * 	이진트리는 대소관계로 방향이 결정되므로 비교 결과에 따라
+	 * 	왼쪽 또는 오른쪽 노드로 이동하면서 비교
+	 * */
+	
+	private boolean containsUsingComparable(Object o) {
+		@SuppressWarnings("unchecked")
+		Comparable<? super E> value = (Comparable<? super E>) o;
+		
+		Node<E> node = root;
+		
+		while(node != null) { // 객체가 찾아지면 true 리턴
+			int res = value.compareTo(node.value);
+			
+			if(res > 0) {
+				node = node.right;
+			}else if(res < 0) {
+				node = node.left;
+			}else { // res == 0 : 객체를 찾음
+				return true;
+			}
+		} 
+		// 반복문이 종료되어도 return 이 안되었다면 객체가 없음을 의미함
+		return false;
+	}
+	
+	private boolean containsUsingComparator(Object o, Comparator<? super E> comp) {
+		
+		return false;
+	}
+	
+	// 이진 탐색 트리 초기화
+	public void clear() {
+		size = 0;
+		root = null;
+	}
+	
+	/*
+	 *  	전위순회(root -> left -> right)
+	 * */
+	public void preorder() {
+		preorder(this.root);
+	}
+	
+	public void preorder(Node<E> o) {
+		// node o 가 null 이 아닌동안 재귀호출
+		if(o != null) {
+			System.out.print(o.value + " "); // root
+			preorder(o.left);
+			preorder(o.right);
+		}
+	}
+	
+	/*
+	 *  	중위순회(left -> root -> right)
+	 * */
+	public void inorder() {
+		inorder(this.root);
+	}
+	
+	public void inorder(Node<E> o) {
+		if(o != null) {
+			inorder(o.left);
+			System.out.print(o.value + " ");
+			inorder(o.right);
+		}
+	}
+	
+	/*
+	 *  	후위순회(left -> right -> root)
+	 * */
+	public void postorder() {
+		postorder(this.root);
+	}
+	
+	public void postorder(Node<E> o) {
+		if(o != null) {
+			postorder(o.left);
+			postorder(o.right);
+			System.out.print(o.value + " ");
+		}
+	}
 }
