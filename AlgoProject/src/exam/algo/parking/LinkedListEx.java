@@ -43,7 +43,7 @@ public class LinkedListEx {
 				}else {
 					String carName = String.valueOf(nextCarName);
 					
-					System.out.print("주차 위치를 선택하세요. (1. 원하는 위치 2. 맨 앞  3. 마지막 위치) >> ");
+					System.out.print("주차 위치를 선택하세요. (1. 중간 2. 맨 앞  3. 마지막) >> ");
 					int position = sc.nextInt();
 					
 					if(position == 1 && linkedList.getSize() > 0) {
