@@ -24,8 +24,9 @@ public class QueueEx {
 
 		while (true) {
 			System.out.println();
-			System.out.print("0. 주차현황 | 1. 주차장 주차 | 2. 자동차 출차 | 3. 만차여부 | 4. 종료 ");
+			System.out.print("0. 주차여부 확인 | 1. 주차장 주차 | 2. 자동차 출차 | 3. 만차여부 | 4. 종료 ");
 			int menu = stdIn.nextInt();
+			stdIn.nextLine();
 
 			if (menu == 4) {
 				System.out.println("종료합니다.");
@@ -34,8 +35,15 @@ public class QueueEx {
 
 			switch (menu) {
 			case 0:
-				q.showParkingQueue();
-				break;
+				System.out.print("주차된 차량의 고유값을 입력하세요. : ");
+				char carChar = stdIn.nextLine().charAt(0);
+				int num = q.contains(carChar);
+				
+				if(num < 0) {
+					System.out.println("입력하신 차량 정보는 주차 목록에 없습니다.");
+				}else {
+					System.out.println("입력하신 차량은 " + (num + 1) + "번째 출차 가능합니다.");
+				}				break;
 			case 1:
 				if (q.isFull()) {
 					System.out.println("주차장이 가득찼습니다.");

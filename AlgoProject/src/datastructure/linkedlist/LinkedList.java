@@ -163,5 +163,20 @@ public class LinkedList {
 		}
 		return count;
 	}
+
+	public int contains(char carChar) {
+		ListNode tempNode = this.head;
+		int index = 0;
+		
+		String target = String.valueOf(carChar);
+		while(tempNode != null) {
+			if(tempNode.getData() != null && tempNode.getData().contains(target)) {
+				return index;
+			}
+			tempNode = tempNode.link;
+			index++;
+		}
+		return 0;
+	}
 	
 } // class 종료
