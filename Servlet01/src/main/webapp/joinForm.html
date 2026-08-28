@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+		<form name="Student" method="get" action="refresh01">
+			<h2>회원 가입</h2>
+			<hr>
+			<table>
+		   	<tr><td>성명</td><td><input type="text" name="stName"></td></tr>
+	     	<tr><td>ID</td><td><input type="text" name="stId"></td></tr>
+	     	<tr><td>비밀번호</td><td><input type="password" name="stPw"></td></tr>
+	     	<tr><td>휴대폰 번호</td><td>
+	     			<input type="text" name="phone1" class="phone"> - 
+                    <input type="text" name="phone2" class="phone"> - 
+                    <input type="text" name="phone3" class="phone"></td><tr>
+	     	
+	     	<tr><td>학년</td><td>
+	     			<input type="radio" name="grade" value="1" checked>1학년
+		           	<input type="radio" name="grade" value="2">2학년
+		           	<input type="radio" name="grade" value="3">3학년
+		            <input type="radio" name="grade" value="4">4학년</td></tr>
+	     	
+	     	<tr><td>관심분야</td><td>
+	     	 	<input type="checkbox" name="interest" value="웹 프로그래밍" checked >웹 프로그래밍
+		   		<input type="checkbox" name="interest" value="파이썬">파이썬
+		   		<input type="checkbox" name="interest" value="빅데이터">빅데이터
+		   		<input type="checkbox" name="interest" value="자바프로그래밍">자바프로그래밍 </td></tr>
+		   		
+	     	<tr><td>학과</td><td>
+	     			<select name="study">
+                        <option value="">선택하세요</option>
+                        <option value="컴퓨터공학과">컴퓨터공학과</option>
+                        <option value="소프트웨어학과">소프트웨어학과</option>
+                        <option value="정보통신학과">정보통신학과</option>
+                    </select></td><tr>
+	     	</table>
+	    <input type="submit" value="완료">  <input type="reset" value="취소">
+	  </form>
+</body>
+</html>
