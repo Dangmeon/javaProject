@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="speaker" class="com.di.spring_di_xml_setter_ex.Speaker"></bean>
+<bean id="tv" class="com.di.spring_di_xml_setter_ex.TV">
+        <!-- name은 세터 메서드 이름(setSpeaker)에서 추출한 프로퍼티명 -->
+        <!-- ref는 주입할 상단 speaker 빈의 id -->
+	<property name="speaker" ref="speaker"/>
+</bean>
+
+</beans>

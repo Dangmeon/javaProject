@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 1. 독립적인 스피커 부품 객체(Bean) 등록 -->
+<bean id="speaker" class="com.di.spring_di_xml_constructor_ex.Speaker"></bean>
+<!-- 2. TV 객체(Bean) 등록 및 생성자를 통한 스피커 주입 설계 -->
+<bean id="tv" class="com.di.spring_di_xml_constructor_ex.TV">
+	<!-- ref 속성을 사용해 위에 만든 speaker 객체의 id를 찔러넣어 결합합니다 -->
+	<constructor-arg ref="speaker"/>
+</bean>
+
+</beans>

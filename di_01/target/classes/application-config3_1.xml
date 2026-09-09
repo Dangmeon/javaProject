@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:component-scan base-package="com.di.spring_di_annotation_ex3"/>
+
+</beans>
+
+
+<!-- 
+  [동작 순서 1단계: 컴포넌트 스캔 시작]
+  TVMain에서 이 XML 파일을 읽어들이면 가장 먼저 실행되는 구문.
+  스프링에게 "com.di.spring_di_annotation_ex3 패키지 안을 전부 살펴보고
+  @Component, @Service, @Controller 등의 어노테이션이 붙은 클래스를 찾아 Bean 객체로 만들어라" 라고 명령한다.
+-->
