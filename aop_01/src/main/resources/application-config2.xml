@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- aop 설정 : annotation 으로 설정 autoProxy -->
+	<aop:aspectj-autoproxy  />
+	
+	<bean id="performanceAspect"
+		class="com.spring_aop.annotation.PerformanceAspect"></bean>
+
+	<!-- 핵심기능 클래스 bean 등록 -->
+	<bean id="rect" class="com.spring_aop.annotation.Rect">
+		<property name="width" value="10"></property>
+		<property name="height" value="20"></property>
+	</bean>
+
+	<bean id="gugudan" class="com.spring_aop.annotation.Gugudan">
+		<property name="dan" value="7"></property>
+	</bean>
+</beans>

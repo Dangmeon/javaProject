@@ -1,6 +1,6 @@
 package com.di.spring_di_annotation_ex3;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /*
  * [동작 순서 2단계: Speaker 빈(Bean) 생성]
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * 메모리에 Speaker 객체를 생성하여 스프링 컨테이너에 보관한다.
  */
 
-@Service
+@Component
 public class Speaker {
 	
 	public void volumeUp() {
