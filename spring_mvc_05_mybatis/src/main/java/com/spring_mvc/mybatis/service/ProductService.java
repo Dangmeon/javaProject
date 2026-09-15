@@ -9,14 +9,16 @@ import org.springframework.stereotype.Service;
 import com.spring_mvc.mybatis.dao.IProductDAO;
 import com.spring_mvc.mybatis.dto.ProductDTO;
 
-// 해당 클래스가 Service Component 라는걸 Spring 컨테이너에게 알림
+
+// 해당 클래스가 Service Componenet라는걸 Spring 컨테이너에게 알림
 @Service
-public class ProductService implements IProductService{
-	//	mybatis 사용하는 경우 인터페이스를 통한 주입
+public class ProductService implements IProductService {
+	
+	// MyBatis 사용하는 경우 인터페이스를 통한 주입
 	@Autowired
 	@Qualifier("IProductDAO")
 	IProductDAO dao;
-	
+
 	@Override
 	public void insertProduct(ProductDTO prdDto) {
 		// TODO Auto-generated method stub
@@ -25,13 +27,13 @@ public class ProductService implements IProductService{
 
 	@Override
 	public void updateProduct(ProductDTO prdDto) {
-		// TODO Auto-generated method stub
+		dao.updateProduct(prdDto);
 		
 	}
 
 	@Override
 	public void deleteProduct(String prdNo) {
-		// TODO Auto-generated method stub
+		dao.deleteProduct(prdNo);
 		
 	}
 
@@ -42,9 +44,8 @@ public class ProductService implements IProductService{
 
 	@Override
 	public ProductDTO detailViewProduct(String prdNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.detailViewProduct(prdNo);
 	}
 	
-	
+
 }
