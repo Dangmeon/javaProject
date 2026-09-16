@@ -1,6 +1,7 @@
 package com.spring_mvc.mybatis.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +22,7 @@ public class ProductService implements IProductService {
 
 	@Override
 	public void insertProduct(ProductDTO prdDto) {
-		// TODO Auto-generated method stub
+		dao.insertProduct(prdDto);
 		
 	}
 
@@ -46,6 +47,22 @@ public class ProductService implements IProductService {
 	public ProductDTO detailViewProduct(String prdNo) {
 		return dao.detailViewProduct(prdNo);
 	}
-	
 
+	@Override
+	public String prdNoCheck(String prdNo) {
+		String res = dao.prdNoCheck(prdNo); // 문자열로 나옴
+		String result = "avaliable";
+		if(res!=null) {
+			result = "no_avaliable";
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<ProductDTO> productSearch(HashMap<String, Object> map) {
+		return dao.productSearch(map);
+	}
+	
+	
+	
 }

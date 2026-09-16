@@ -67,4 +67,28 @@
    	 	WHERE prdNo=#{prdNo}
 	</delete>
 	 
+	 <!--  
+	 	상품번호 중복 확인 
+	 	상품 번호가
+	 -->
+	 <select id="prdNoCheck" resultType="string" parameterType="string">
+	 	SELECT prdNo FROM product WHERE prdNo=#{prdNo}
+	 </select>
+	 
+	 <!--  
+	 	상품 검색 
+	 	조건절 구성이 상품명 검색이거나 제조사 검색
+	 	<CHOOSE><WHEN> : IF ~ ELSE
+	 -->
+	 <select id="productSearch" parameterType="hashmap" resultMap="prdResult">
+	 	SELECT * FROM product WHERE
+	 	<choose>
+	 		<when test="type != null and type.equals('prdName')">
+	 			prdName LIKE '%' || #{keyword} || '%'
+	 		</when>
+	 		<when test="type != null and type.equals('prdCompany')">
+	 			prdCompany LIKE '%' || #{keyword} || '%'
+	 		</when>
+	 	</choose>
+	 </select>
 </mapper>
