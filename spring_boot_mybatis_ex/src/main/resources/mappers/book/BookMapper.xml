@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring_boot_mybatis_ex.project.dao.IBookDAO">
+    
+    <resultMap type="com.spring_boot_mybatis_ex.project.dto.BookDTO" id="bookResult">
+        <result property="bookNo" column="BOOKNO"/>
+        <result property="bookName" column="BOOKNAME"/>
+        <result property="bookAuthor" column="BOOKAUTHOR"/>
+        <result property="bookPrice" column="BOOKPRICE"/>
+        <result property="bookDate" column="BOOKDATE"/>
+        <result property="bookStock" column="BOOKSTOCK"/>
+        <result property="pubNo" column="PUBNO"/>
+    </resultMap>
+    
+    <select id="listAllBook" resultMap="bookResult">
+        SELECT * FROM book ORDER BY BOOKNO
+    </select>
+    
+    <select id="detailViewBook" parameterType="string" resultType="com.spring_boot_mybatis_ex.project.dto.BookDTO">
+    	SELECT * FROM book
+    	WHERE bookNo=#{bookNo}
+    </select>
+    
+    <insert id="insertBook" parameterType="com.spring_boot_mybatis_ex.project.dto.BookDTO">
+    	INSERT INTO book(bookNo, bookName, bookAuthor, bookPrice, bookDate, bookStock, pubNo)
+    	VALUES (#{bookNo}, #{bookName}, #{bookAuthor}, #{bookPrice}, #{bookDate}, #{bookStock}, #{pubNo})
+    </insert>
+    
+    <update id="updateBook" parameterType="com.spring_boot_mybatis_ex.project.dto.BookDTO">
+   		UPDATE book SET bookName=#{bookName}, bookAuthor=#{bookAuthor}, bookPrice=#{bookPrice},
+   									bookDate=#{bookDate}, bookStock=#{bookStock}, pubNo=#{pubNo}
+   		WHERE bookNo=#{bookNo}
+	</update>
+	
+	<delete id="deleteBook" parameterType="string">
+		DELETE FROM book
+		WHERE bookNo=#{bookNo}
+	</delete>
+	
+	<select id="bookNoCheck" resultType="string" parameterType="string">
+		SELECT bookNo FROM book WHERE bookNo=#{bookNo}
+	</select>
+	
+	<select id="bookSearch" parameterType="hashmap" resultMap="bookResult">
+	 	SELECT * FROM book WHERE
+	 	<choose>
+	 		<when test="type != null and type.equals('bookName')">
+	 			bookName LIKE '%' || #{keyword} || '%'
+	 		</when>
+	 		<when test="type != null and type.equals('bookAuthor')">
+	 			bookAuthor LIKE '%' || #{keyword} || '%'
+	 		</when>
+	 	</choose>
+	 </select>
+</mapper>

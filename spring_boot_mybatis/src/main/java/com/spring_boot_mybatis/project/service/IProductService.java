@@ -1,0 +1,24 @@
+package com.spring_boot_mybatis.project.service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.spring_boot_mybatis.project.dto.ProductDTO;
+
+
+/*
+ * Service는 특정 웹 프레임워크의 제약을 받지 않는 순수 자바 객체로 구성
+ * web과 분리 / Controller 외부객체(DBMS)와의 분리가 목적 
+ * Controller와 DAO의 중계자 역할
+ */
+
+// Controllerr가 사용할 수 있는 기능
+public interface IProductService {
+	void insertProduct(ProductDTO prdDto);
+	void updateProduct(ProductDTO prdDto);
+	void deleteProduct(String prdNo);
+	ArrayList<ProductDTO> listAllProduct();
+	ProductDTO detailViewProduct(String prdNo);
+	String prdNoCheck(String prdNo);
+	ArrayList<ProductDTO> productSearch(HashMap<String, Object> map); 
+}

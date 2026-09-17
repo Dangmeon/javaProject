@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:property-placeholder location="classpath:database/jdbc.properties"/> <!-- 안에서 사용할 데이터의 위치를 알려줌 classpath: 기억 -->
+<context:component-scan base-package="com.spring_mvc.mybatisEx"/>
+
+<!-- connection pool 사용 관련 모듈 bean 등록 -->
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<property name="driverClassName" value="${jdbc.driverClassName}"/> <!-- jdbc.property에서 찾아서 등록 -->
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
+</bean>
+
+<!--  mybatis(SQL 매퍼)이 사용할 수 있도록 datasource 연동 설정 
+		sqlSessionFactoryBean 클래스의 필드 1 : dataSource, 필드 2 : mapperLocations
+		mybatis에서 dao의 실제 구현과 관련된 xml을 mapper라고 함 - 위치를 SqlSessionRactoryBean에게 고지해야함
+-->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"/>
+	<property name="mapperLocations" value="classpath:mappers/**/*.xml"/>
+	<!--  <property name="mapperLocations" value="classpath:com/spring_mvc/mybatisEx/**/*.xml"/>-->
+</bean>
+
+<mybatis-spring:scan base-package="com.spring_mvc.mybatisEx.dao"/>
+</beans>

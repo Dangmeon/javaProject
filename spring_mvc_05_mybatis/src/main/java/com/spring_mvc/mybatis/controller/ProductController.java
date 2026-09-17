@@ -139,6 +139,15 @@ public class ProductController {
 	public String viewProductSearchForm1() {
 		return "product/productSearchForm1";
 	}
+
+	/*
+	 * [방식 1] @ResponseBody를 활용한 데이터(JSON) 반환 방식
+	 * 일반적인 @Controller 안에서 특정 메서드만 데이터를 반환하고 싶을 때 사용.
+	 * 
+	 * 특징: 반환되는 ArrayList 객체를 스프링(Jackson 라이브러리)이 자동으로 JSON 배열로 변환해 준다.
+	 * 프론트엔드 처리: 자바스크립트가 JSON 데이터를 받아 직접 for문을 돌면서 
+	 *              <tr>, <td> 태그를 일일이 조립(.append)해서 화면에 그려야 한다.
+	 */
 	
 	// 상품 검색 메소드 1 - ArrayList 객체를 스프링 컨테이너에세 반환하면 컨테이너는 json 형식으로 변환 후
 	// 클라이언트에게 전송 - jackson-databind 의존 객체가 필요
@@ -149,5 +158,39 @@ public class ProductController {
 		ArrayList<ProductDTO> prdList = service.productSearch(map);
 		
 		return prdList;
+	}
+	
+	
+	// 상품 검색 폼 요청 2
+	@RequestMapping("/product/productSearchForm2")
+	public String viewProductSearchForm2() {
+		return "product/productSearchForm2";
+	}
+	
+	/*
+	 * [방식 2] Model과 JSP(View)를 활용한 HTML 통째로 반환 방식
+	 * @ResponseBody 없이 전통적인 MVC 패턴처럼 Model에 데이터를 담아 JSP 화면을 반환.
+	 * 
+	 * 특징: 서버(JSP) 쪽에서 JSTL(<c:forEach>)을 사용해 미리 테이블 태그를 모두 완성해 둔다.
+	 * 프론트엔드 처리: 자바스크립트는 복잡한 for문 없이, 완성된 HTML 코드 덩어리를 
+	 *              받아와서 .html(result) 단 한 줄로 화면에 끼워 넣기만 하면 된다.
+	 * 장점: 프론트(JS) 코드가 획기적으로 짧아지며, jQuery 환경에서 화면을 깜빡임 없이 새로고침할 때 아주 유용하다.
+	 */
+	
+	// 상품 검색 메소드 2 - view 페이지 반환
+	// @ResponseBody : 반환하는 문자열을 JSP 파일 이름으로 찾지 말고, 그냥 글자 그대로 브라우저에 던지라는 뜻과 같음
+	@RequestMapping("/product/productSearch2")
+	public String productSearch2(@RequestParam HashMap<String, Object> map, Model model){
+	// public ArrayList<ProductDTO> productSearch1(@RequestParam String type, @RequestParam String keyword){
+		ArrayList<ProductDTO> prdList = service.productSearch(map);
+		model.addAttribute("prdList", prdList);
+		
+		return "product/productSearchResultView";
+	}
+	
+	// 상품 검색 폼 요청 3
+	@RequestMapping("/product/productSearchForm3")
+	public String viewProductSearchForm3() {
+		return "product/productSearchForm3";
 	}
 }
